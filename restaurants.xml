@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<restaurantlist>
+    <restaurant>
+        <name>Olive Garden</name>
+        <rating>*****</rating>
+        <foodtype>Italian</foodtype>
+    </restaurant>
+
+    <restaurant>
+        <name>Iron Age</name>
+        <rating>*****</rating>
+        <foodtype>Korean</foodtype>
+    </restaurant>
+
+    <restaurant>
+        <name>Pizza Hut</name>
+        <rating>*****</rating>
+        <foodtype>Pizza</foodtype>
+    </restaurant>
+
+    <restaurant>
+        <name>Cheesecake Factory</name>
+        <rating>*****</rating>
+        <foodtype>Restaurant</foodtype>
+    </restaurant>
+
+    <restaurant>
+        <name>Cheesecake Factory</name>
+        <rating>*****</rating>
+        <foodtype>Restaurant</foodtype>
+    </restaurant>
+</restaurantlist>
