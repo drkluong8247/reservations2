@@ -1,5 +1,22 @@
-<html>
-    <body>
-        <h2>Hello Heroku!</h2>
-    </body>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>Reserve at your restaurant</title>
+	<link rel="stylesheet" type="text/css" href="../css/styles.css">
+</head>
+<body onload="retrieveRestaurants()">
+	<script src="../js/myscripts.js"></script>
+	<h1>Select your restaurant</h1>
+	<form>
+		<p>Restaurant: <input id="restaurantSearch" type="text" onchange="updateRestaurants()"></p>
+		<p>Search Results: </p>
+		<table id="RestaurantList" class="restaurantSelect" width="50%">
+		</table>
+
+		<p>Number of People: <input id="numPeople" type="text"></p>
+		<p>Time of Reservation: <input id="time" type="text"></p>
+
+		<input type="submit" value="Submit" Name="submit">
+	</form>
+</body>
 </html>
