@@ -15,18 +15,36 @@
     <restaurant>
         <name>Pizza Hut</name>
         <rating>*****</rating>
-        <foodtype>Pizza</foodtype>
+        <foodtype>Italian</foodtype>
+    </restaurant>
+
+    <restaurant>
+        <name>Red Robin</name>
+        <rating>*****</rating>
+        <foodtype>American</foodtype>
     </restaurant>
 
     <restaurant>
         <name>Cheesecake Factory</name>
         <rating>*****</rating>
-        <foodtype>Restaurant</foodtype>
+        <foodtype>American</foodtype>
     </restaurant>
 
     <restaurant>
-        <name>Cheesecake Factory</name>
-        <rating>*****</rating>
-        <foodtype>Restaurant</foodtype>
+        <name>Cracker Barrel</name>
+        <rating>****</rating>
+        <foodtype>American</foodtype>
+    </restaurant>
+
+    <restaurant>
+        <name>TGI Fridays</name>
+        <rating>****</rating>
+        <foodtype>American</foodtype>
+    </restaurant>
+
+    <restaurant>
+        <name>Tony's New York Pizza</name>
+        <rating>****</rating>
+        <foodtype>Italian</foodtype>
     </restaurant>
 </restaurantlist>

@@ -1,13 +1,3 @@
-var restaurants = [
-    "McDonalds",
-    "Cheesecake Factory",
-    "Olive Garden",
-    "Iron Age",
-    "Pizza Hut",
-    "Golden Corral",
-    "A nice restaurant"
-];
-
 function retrieveRestaurants()
 {
     var xhttp = new XMLHttpRequest();
