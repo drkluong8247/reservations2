@@ -8,11 +8,6 @@ function retrieveRestaurants()
     };
     xhttp.open("GET", "restaurants.xml", true);
     xhttp.send();
-    //for (i = 0; i < restaurants.length; i++)
-    //{
-    //    str += "<tr><td class=restaurantSelect>" + restaurants[i] + "</td></tr>";
-    //}
-    //document.getElementById("RestaurantList").innerHTML = str;
 }
 
 function fillRestaurants(xml)
@@ -49,4 +44,52 @@ function updateRestaurants()
         }
     }
     document.getElementById("RestaurantList").innerHTML = str;
+}
+
+
+function updateTime()
+{
+    var hour = getHour();
+    var minute = getMinute();
+    var AMorPM = getMorningNight();
+
+    var str = "";
+    str += hour + " : ";
+    str += minute + " ";
+    str += AMorPM;
+    document.getElementById("temp").innerHTML = str;
+}
+
+function getHour()
+{
+    var hour = document.getElementById("hour");
+    return hour.value;
+}
+
+function getMinute()
+{
+    var minuteName = "minutes";
+    var i;
+    for(i = 0; i <= 45; i+=15)
+    {
+        var minuteId = minuteName + i;
+        var minutes = document.getElementById(minuteId);
+        if(minutes.checked)
+        {
+            return i;
+        }
+    }
+
+    return 0;
+}
+
+function getMorningNight()
+{
+    var am = document.getElementById("AM");
+    if(am.checked)
+    {
+        return "AM";
+    }
+
+    return "PM";
 }

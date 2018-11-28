@@ -29,7 +29,28 @@ public class SubmitReservationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         ServletOutputStream out = resp.getOutputStream();
+
+        // Just testing the database get connection
+        try
+        {
+            Connection c = getConnection();
+        }
+        catch (URISyntaxException uriExc)
+        {
+            out.println("database connection URI exception");
+        }
+        catch (SQLException sqlExc)
+        {
+            out.println("SQL Exception?");
+        }
+
+        String mornNight = req.getParameter("AmPm");
+        String hour = req.getParameter("hour");
+        String minute = req.getParameter("minute");
+
         out.println("submit the stuff yo");
+
+        out.println("Time is " + hour + ":" + minute + " " + mornNight);
         out.flush();
         out.close();
     }
