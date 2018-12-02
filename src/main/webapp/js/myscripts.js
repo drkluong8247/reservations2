@@ -1,3 +1,8 @@
+function initialize()
+{
+    retrieveRestaurants();
+}
+
 function retrieveRestaurants()
 {
     var xhttp = new XMLHttpRequest();
@@ -21,7 +26,7 @@ function fillRestaurants(xml)
         var rating = "Rating: " + rList[i].getElementsByTagName("rating")[0].childNodes[0].nodeValue + "<br>";
         var foodtype = "Food type: " + rList[i].getElementsByTagName("foodtype")[0].childNodes[0].nodeValue + "<br>";
 
-        table += "<tr><td class=restaurantSelect>" +
+        table += "<tr class=restaurantSelect><td class=restaurantSelect>" +
         name + rating + foodtype +
         "</td></tr>";
     }
@@ -57,7 +62,7 @@ function updateTime()
     str += hour + " : ";
     str += minute + " ";
     str += AMorPM;
-    document.getElementById("temp").innerHTML = str;
+    document.getElementById("timeDisplay").innerHTML = str;
 }
 
 function getHour()
@@ -76,11 +81,15 @@ function getMinute()
         var minutes = document.getElementById(minuteId);
         if(minutes.checked)
         {
+            if(i == 0)
+            {
+                return "00";
+            }
             return i;
         }
     }
 
-    return 0;
+    return "00";
 }
 
 function getMorningNight()

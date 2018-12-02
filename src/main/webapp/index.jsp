@@ -18,41 +18,43 @@
 
 
 	<p>Search Results: </p>
-	<table>
-		<tr>
-			<td width="100%">
-				<table id="RestaurantList" class="restaurantSelect">
-				</table>
-			</td>
-		</tr>
-	</table>
+	<div style="height: 400px; overflow-y: auto;">
+		<table>
+			<tr>
+				<td width="100%">
+					<table id="RestaurantList" class="restaurantSelect">
+					</table>
+				</td>
+			</tr>
+		</table>
+	</div>
 
 	<form action="/submit" method="post">
 		<p>Number of People: <input id="numPeople" type="number" min="1" max="100" value="2" oninput="validateNumber(numPeople, this.Value)"></p>
 
 		<p> Date:
-			<input type="radio" name="Month" value="January"> January
-			<input type="radio" name="Month" value="Feburary"> Feburary
-			<input type="radio" name="Month" value="March"> March
-			<input type="radio" name="Month" value="April"> April
-			<input type="radio" name="Month" value="May"> May
-			<input type="radio" name="Month" value="June"> June
-			<input type="radio" name="Month" value="July"> July
-			<input type="radio" name="Month" value="August"> August
-			<input type="radio" name="Month" value="September"> September
-			<input type="radio" name="Month" value="October"> October
-			<input type="radio" name="Month" value="November"> November
-			<input type="radio" name="Month" value="December"> December
+			<select id="month" name="month">
+				<option value="1">January</option>
+				<option value="2">Feburary</option>
+				<option value="3">March</option>
+				<option value="4">April</option>
+				<option value="5">May</option>
+				<option value="6">June</option>
+				<option value="7">July</option>
+				<option value="8">August</option>
+				<option value="9">September</option>
+				<option value="10">October</option>
+				<option value="11">November</option>
+				<option value="12">December</option>
+			</select>
 
-			<br>
-			<input id="day" type="number" min="1" max="31">
+			<input id="day" name="day" type="number" min="1" max="31">
 
-			<br>
-			<input id="year" type="number">
+			<input id="year" name="year" type="number" value="2018">
 		</p>
 
 		<p>Time of Reservation: </p>
-		<p id="temp"></p>
+		<p id="timeDisplay"></p>
 		<table>
 			<tr>
 				<th>Hours</th>
@@ -77,7 +79,7 @@
 					</select>
 				</td>
 				<td>
-					<input id="minutes0" type="radio" name="minute" value="00" onchange="updateTime()"> 00 <br>
+					<input id="minutes0" type="radio" name="minute" value="00" onchange="updateTime()" checked> 00 <br>
 					<input id="minutes15" type="radio" name="minute" value="15" onchange="updateTime()"> 15 <br>
 					<input id="minutes30" type="radio" name="minute" value="30" onchange="updateTime()"> 30 <br>
 					<input id="minutes45" type="radio" name="minute" value="45" onchange="updateTime()"> 45 <br>

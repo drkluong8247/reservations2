@@ -29,11 +29,19 @@ public class SubmitReservationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         ServletOutputStream out = resp.getOutputStream();
+        int insertId = -1;
 
         // Just testing the database get connection
         try
         {
             Connection c = getConnection();
+            String queryID = "SELECT max(resId) from reservations";
+            PreparedStatement s = c.prepareStatement(queryID);
+            ResultSet r = s.executeQuery();
+            if(r.next())
+            {
+                insertId = r.getInt("max") + 1;
+            }
         }
         catch (URISyntaxException uriExc)
         {
@@ -48,9 +56,15 @@ public class SubmitReservationServlet extends HttpServlet {
         String hour = req.getParameter("hour");
         String minute = req.getParameter("minute");
 
+        String month = req.getParameter("month");
+        String day = req.getParameter("day");
+        String year = req.getParameter("year");
+
         out.println("submit the stuff yo");
 
+        out.println("INSERT ID: " + insertId);
         out.println("Time is " + hour + ":" + minute + " " + mornNight);
+        out.println("Date is " + month + "/" + day + "/" + year);
         out.flush();
         out.close();
     }
