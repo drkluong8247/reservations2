@@ -1,10 +1,15 @@
+<%@ page import = "java.util.*" %>
+
+<%
+%>
+
 <html lang="en-US">
 <head>
 	<meta charset="UTF-8">
 	<title>Reserve at your restaurant</title>
 	<link rel="stylesheet" type="text/css" href="../css/styles.css">
 </head>
-<body onload="retrieveRestaurants()">
+<body onload="initialize()">
 	<script src="../js/myscripts.js"></script>
 
 	<h1>Select your restaurant</h1>
@@ -18,14 +23,8 @@
 
 
 	<p>Search Results: </p>
-	<div style="height: 400px; overflow-y: auto;">
-		<table>
-			<tr>
-				<td width="100%">
-					<table id="RestaurantList" class="restaurantSelect">
-					</table>
-				</td>
-			</tr>
+	<div style="height: 300px; overflow-y: auto;">
+		<table id="RestaurantList" class="restaurantSelect">
 		</table>
 	</div>
 
@@ -48,9 +47,19 @@
 				<option value="12">December</option>
 			</select>
 
-			<input id="day" name="day" type="number" min="1" max="31">
+			<input id="day" name="day" type="number" min="1" max="31" value="1">
 
-			<input id="year" name="year" type="number" value="2018">
+			<select id="year" name="year">
+				<%
+					GregorianCalendar cal = new GregorianCalendar();
+					int year = cal.get(Calendar.YEAR);
+					for(int i = 0; i < 10; i++)
+					{
+						int optYear = year + i;
+						out.println("<option value=\"" + optYear + "\">" + optYear + " </option>");
+					}
+				%>
+			</select>
 		</p>
 
 		<p>Time of Reservation: </p>
@@ -58,7 +67,7 @@
 		<table>
 			<tr>
 				<th>Hours</th>
-				<th>minutes</th>
+				<th>Minutes</th>
 				<th></th>
 			</tr>
 			<tr>

@@ -1,17 +1,39 @@
 function initialize()
 {
     retrieveRestaurants();
+    initializeDate();
+    initializeTime();
 }
 
 function retrieveRestaurants()
 {
+    makeRequest("/retrieve", fillRestaurants);
+}
+
+function initializeTime()
+{
+    updateTime();
+}
+
+function initializeDate()
+{
+    var today = new Date();
+
+    var month = today.getMonth();
+    var day = today.getDate();
+    var year = today.getFullYear();
+}
+
+function makeRequest(url, func)
+{
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        fillRestaurants(this);
+        if (this.readyState == 4 && this.status == 200) {
+            func(this);
         }
-    };
-    xhttp.open("GET", "restaurants.xml", true);
+    }
+
+    xhttp.open("GET", url, true);
     xhttp.send();
 }
 
@@ -23,6 +45,7 @@ function fillRestaurants(xml)
     for (i = 0; i < rList.length; i++)
     {
         var name = "Name: " + rList[i].getElementsByTagName("name")[0].childNodes[0].nodeValue + "<br>";
+        var address = "Address: " + rList[i].getElementsByTagName("address")[0].childNodes[0].nodeValue + "<br>";
         var rating = "Rating: " + rList[i].getElementsByTagName("rating")[0].childNodes[0].nodeValue + "<br>";
         var foodtype = "Food type: " + rList[i].getElementsByTagName("foodtype")[0].childNodes[0].nodeValue + "<br>";
 
