@@ -1,8 +1,5 @@
 <%@ page import = "java.util.*" %>
 
-<%
-%>
-
 <html lang="en-US">
 <head>
 	<meta charset="UTF-8">
@@ -21,7 +18,6 @@
 	<input type="checkbox" id="foodAmerican"> American
 
 
-
 	<p>Search Results: </p>
 	<div style="height: 300px; overflow-y: auto;">
 		<table id="RestaurantList" class="restaurantSelect">
@@ -29,7 +25,9 @@
 	</div>
 
 	<form action="/submit" method="post">
-		<p>Number of People: <input id="numPeople" type="number" min="1" max="100" value="2" oninput="validateNumber(numPeople, this.Value)"></p>
+		<p id="selectedRestaurant"> Click a restaurant in the table above to select it.</p>
+
+		<p>Number of People: <input id="numPeople" type="number" min="1" max="20" value="2"></p>
 
 		<p> Date:
 			<select id="month" name="month">
@@ -62,6 +60,7 @@
 			</select>
 		</p>
 
+		<div class="timeSelect">
 		<p>Time of Reservation: </p>
 		<p id="timeDisplay"></p>
 		<table>
@@ -79,7 +78,7 @@
 						<option value="4">4</option>
 						<option value="5">5</option>
 						<option value="6">6</option>
-						<option value="7">7</option>
+						<option value="7" selected>7</option>
 						<option value="8">8</option>
 						<option value="9">9</option>
 						<option value="10">10</option>
@@ -88,17 +87,26 @@
 					</select>
 				</td>
 				<td>
-					<input id="minutes0" type="radio" name="minute" value="00" onchange="updateTime()" checked> 00 <br>
-					<input id="minutes15" type="radio" name="minute" value="15" onchange="updateTime()"> 15 <br>
-					<input id="minutes30" type="radio" name="minute" value="30" onchange="updateTime()"> 30 <br>
-					<input id="minutes45" type="radio" name="minute" value="45" onchange="updateTime()"> 45 <br>
+					<label for="minutes0">00</label>
+					<input id="minutes0" type="radio" name="minute" value="00" onchange="updateTime()" checked><br>
+					<label for="minutes15">15</label>
+					<input id="minutes15" type="radio" name="minute" value="15" onchange="updateTime()"><br>
+					<label for="minutes30">30</label>
+					<input id="minutes30" type="radio" name="minute" value="30" onchange="updateTime()"><br>
+					<label for="minutes45">45</label>
+					<input id="minutes45" type="radio" name="minute" value="45" onchange="updateTime()"><br>
 				</td>
 				<td>
-					<input id="AM" type="radio" name="AmPm" value="AM" onchange="updateTime()"> AM <br>
-					<input id="PM" type="radio" name="AmPm" value="PM" onchange="updateTime()" checked> PM <br>
+					<label for="AM">AM</label>
+					<input id="AM" type="radio" name="AmPm" value="AM" onchange="updateTime()"><br>
+					<label for="PM">PM</label>
+					<input id="PM" type="radio" name="AmPm" value="PM" onchange="updateTime()" checked><br>
 				</td>
 			</tr>
 		</table>
+		</div>
+
+		Name: <input id="personName" name="personName" type="text" required> <br>
 
 		<input type="submit" value="Submit" Name="submit">
 	</form>

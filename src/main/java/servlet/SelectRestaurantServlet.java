@@ -11,40 +11,16 @@ import java.sql.*;
 import java.io.*;
 
 @WebServlet(
-        name = "RetrieveRestaurantsServlet",
-        urlPatterns = {"/retrieve"}
+        name = "SelectRestaurantServlet",
+        urlPatterns = {"/select"}
     )
-public class RetrieveRestaurantsServlet extends HttpServlet {
+public class SelectRestaurantServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException
     {
-        resp.setContentType("text/xml; charset=UTF-8");
-        PrintWriter out = resp.getWriter();
-
-        out.println("<restaurantlist>");
-        try
-        {
-            Connection c = getConnection();
-            String restaurantQuery = "SELECT * FROM restaurants";
-            PreparedStatement s = c.prepareStatement(restaurantQuery);
-            ResultSet r = s.executeQuery();
-            while(r.next())
-            {
-                addRestaurantResult(r, out);
-            }
-        }
-        catch (URISyntaxException uriExc)
-        {
-        }
-        catch (SQLException sqlExc)
-        {
-        }
-
-        out.println("</restaurantlist>");
-        out.flush();
-        out.close();
+        //Don't retrieve anything on a get
     }
 
     @Override
@@ -54,11 +30,16 @@ public class RetrieveRestaurantsServlet extends HttpServlet {
         resp.setContentType("text/xml; charset=UTF-8");
         PrintWriter out = resp.getWriter();
 
+        int i = 1;
+        String rIndex = req.getParameter("id");
+        i = Integer.parseInt(rIndex);
+
         out.println("<restaurantlist>");
         try
         {
             Connection c = getConnection();
-            String restaurantQuery = "SELECT * FROM restaurants";
+
+            String restaurantQuery = "SELECT * FROM restaurants WHERE restaurantID=" + i;
             PreparedStatement s = c.prepareStatement(restaurantQuery);
             ResultSet r = s.executeQuery();
             while(r.next())

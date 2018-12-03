@@ -27,11 +27,22 @@ public class SubmitReservationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
+        resp.setContentType("text/html; charset=UTF-8");
         ServletOutputStream out = resp.getOutputStream();
         int insertId = -1;
+        boolean success = false;
 
-        // Just testing the database get connection
+        // Gets the value from the form
+        String mornNight = req.getParameter("AmPm");
+        String hour = req.getParameter("hour");
+        String minute = req.getParameter("minute");
+
+        String month = req.getParameter("month");
+        String day = req.getParameter("day");
+        String year = req.getParameter("year");
+
         try
         {
             Connection c = getConnection();
@@ -52,19 +63,25 @@ public class SubmitReservationServlet extends HttpServlet {
             out.println("SQL Exception?");
         }
 
-        String mornNight = req.getParameter("AmPm");
-        String hour = req.getParameter("hour");
-        String minute = req.getParameter("minute");
+        out.println ("<html>");
+        out.println ("<head>");
+        out.println ("<title>Reservation successful</title>");
+        out.println ("</head>");
 
-        String month = req.getParameter("month");
-        String day = req.getParameter("day");
-        String year = req.getParameter("year");
-
-        out.println("submit the stuff yo");
-
+        out.println("<body>");
+        out.println("<p>");
         out.println("INSERT ID: " + insertId);
+        out.println("</p>");
+
+        out.println("<p>");
         out.println("Time is " + hour + ":" + minute + " " + mornNight);
+        out.println("</p>");
+
+        out.println("<p>");
         out.println("Date is " + month + "/" + day + "/" + year);
+        out.println("</p>");
+        out.println("</body>");
+        out.println("</html>");
         out.flush();
         out.close();
     }
