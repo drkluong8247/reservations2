@@ -1,3 +1,5 @@
+var restaurantSelected = false;
+
 function initialize()
 {
     retrieveRestaurants();
@@ -44,7 +46,7 @@ function initializeDate()
     var years = document.getElementById("year").options;
     for(var i = 0; i < years.length; i++)
     {
-        if(years[i].value == year+1)
+        if(years[i].value == year)
         {
             years.selectedIndex = i;
             break;
@@ -81,7 +83,7 @@ function fillRestaurants(xml)
 
         var id = rList[i].getElementsByTagName("restaurantid")[0].childNodes[0].nodeValue;
 
-        table += "<tr onclick=selectRestaurant(" + id + ") class=restaurantSelect><td class=restaurantSelect>" +
+        table += "<tr onclick=selectRestaurant(" + id + ")><td>" +
         name + address + rating + foodtype +
         "</td></tr>";
     }
@@ -134,8 +136,13 @@ function updateSelectedRestaurant(xml)
         var foodtype = "Food type: " + rList[i].getElementsByTagName("foodtype")[0].childNodes[0].nodeValue + "<br>";
 
         result = name + address + rating + foodtype;
+
+        var id = "<input type=\"hidden\" id=\"sRestaurantId\" name=\"sRestaurantId\" value=\""
+            + rList[i].getElementsByTagName("restaurantid")[0].childNodes[0].nodeValue + "\">";
+        result += id;
     }
     document.getElementById("selectedRestaurant").innerHTML = result;
+    restaurantSelected = true;
 }
 
 
@@ -145,10 +152,20 @@ function updateTime()
     var minute = getMinute();
     var AMorPM = getMorningNight();
 
-    var str = "";
+    var str = "  ";
     str += hour + " : ";
     str += minute + " ";
     str += AMorPM;
+
+    if(hour == "12" && minute == "00")
+    {
+        if(AMorPM == "AM") {
+            str += " (midnight)";
+        }
+        else {
+            str += " (noon)";
+        }
+    }
     document.getElementById("timeDisplay").innerHTML = str;
 }
 
@@ -188,4 +205,14 @@ function getMorningNight()
     }
 
     return "PM";
+}
+
+function validateForm()
+{
+    if(!restaurantSelected)
+    {
+        return false;
+    }
+
+    return true;
 }

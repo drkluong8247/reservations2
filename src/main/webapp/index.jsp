@@ -9,7 +9,7 @@
 <body onload="initialize()">
 	<script src="../js/myscripts.js"></script>
 
-	<h1>Select your restaurant</h1>
+	<h1>Step 1: Select your restaurant</h1>
 
 	<p>Restaurant: <input id="restaurantSearch" type="text" onchange="updateRestaurants()"></p>
 
@@ -17,17 +17,22 @@
 	<input type="checkbox" id="foodKorean"> Korean
 	<input type="checkbox" id="foodAmerican"> American
 
-
-	<p>Search Results: </p>
-	<div style="height: 300px; overflow-y: auto;">
+	<h2>Search Results: </h2>
+	<div class="restaurantSearchResults">
 		<table id="RestaurantList" class="restaurantSelect">
 		</table>
 	</div>
 
-	<form action="/submit" method="post">
-		<p id="selectedRestaurant"> Click a restaurant in the table above to select it.</p>
+	<br>
+	<h1>Step 2: Fill in Information</h1>
 
-		<p>Number of People: <input id="numPeople" type="number" min="1" max="20" value="2"></p>
+	<form action="/submit" method="post" onsubmit="return validateForm();">
+
+		<div id="selectedRestaurant" class="selectedRestaurant">
+			 Click a restaurant in the results above to select it.
+		</div>
+
+		<p>Number of People: <input id="numPeople" name="numPeople" type="number" min="1" max="20" value="2"></p>
 
 		<p> Date:
 			<select id="month" name="month">
@@ -61,7 +66,7 @@
 		</p>
 
 		<div class="timeSelect">
-		<p>Time of Reservation: </p>
+		<p>  Time of Reservation: </p>
 		<p id="timeDisplay"></p>
 		<table>
 			<tr>
@@ -106,6 +111,7 @@
 		</table>
 		</div>
 
+		<br>
 		Name: <input id="personName" name="personName" type="text" required> <br>
 
 		<input type="submit" value="Submit" Name="submit">
