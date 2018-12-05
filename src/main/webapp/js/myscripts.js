@@ -195,6 +195,7 @@ function getMorningNight()
     return "PM";
 }
 
+
 // Returns true if the form inputs are valid.
 function validateForm()
 {

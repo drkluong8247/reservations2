@@ -9,6 +9,8 @@
 <body onload="initialize()">
 	<script src="../js/myscripts.js"></script>
 
+	<a href="/jsp/findreservation.jsp">Click here to retrieve a reservation</a>
+
 	<h1>Step 1: Select your restaurant</h1>
 
 	<p>Restaurant: <input id="restaurantSearch" type="text" onchange="updateRestaurants()"></p>
@@ -29,7 +31,7 @@
 
 	<form action="/submit" method="post" onsubmit="return validateForm();">
 
-		<h3>Selected Restaurant: </h3>
+		<h2>Selected Restaurant: </h2>
 		<div id="selectedRestaurant" class="selectedRestaurant">
 			 Click a restaurant in the results above to select it.
 		</div>

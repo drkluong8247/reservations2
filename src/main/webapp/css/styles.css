@@ -11,6 +11,11 @@ h2 {
     font-size: 1.2em;
 }
 
+h3 {
+    font-size: 1.7em;
+    text-align: center;
+}
+
 p.helpText {
     color: red;
 }
