@@ -43,13 +43,14 @@ function updateSelectedReservation(xml)
         var restaurantName = "Restaurant:  " + rList[i].getElementsByTagName("restaurantname")[0].childNodes[0].nodeValue + "<br><br>";
         var restaurantAddress = "Restaurant Address: " + rList[i].getElementsByTagName("address")[0].childNodes[0].nodeValue + "<br><br>";
 
-        result = name + time + address + numPeople + foodtype + restaurantName + restaurantAddress;
+        result = "<hr>" + name + time + address + numPeople + foodtype + restaurantName + restaurantAddress;
 
         // Add some features
         var cancelId = rList[i].getElementsByTagName("resid")[0].childNodes[0].nodeValue;
         var cancel = "<br><br><br><button id=\"" + cancelId + "\" onclick=\"cancelReservation(" + cancelId + ");\"> Cancel this reservation </button>";
         var print = "<br><button onclick=\"window.print();\"> Print this reservation </button>";
         result += print + cancel;
+        result += "<hr>"
     }
     document.getElementById("selectedReservation").innerHTML = result;
 }

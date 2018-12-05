@@ -15,13 +15,7 @@
 
 	<h1>Step 1: Select your restaurant</h1>
 
-	<p>Restaurant: <input id="restaurantSearch" type="text" onchange="updateRestaurants()"></p>
-
-	<input type="checkbox" id="foodItalian"> Italian
-	<input type="checkbox" id="foodKorean"> Korean
-	<input type="checkbox" id="foodAmerican"> American
-
-	<h2>Search Results: </h2>
+	<h2>Results: </h2>
 	<div class="restaurantSearchResults">
 		<table id="RestaurantList" class="restaurantSelect">
 		</table>
@@ -133,6 +127,11 @@
 					<input id="AM" type="radio" name="AmPm" value="AM" onchange="updateTime()"><br>
 					<label for="PM">PM</label>
 					<input id="PM" type="radio" name="AmPm" value="PM" onchange="updateTime()" checked><br>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<p id="timeHelp" class="helpText"></p>
 				</td>
 			</tr>
 		</table>

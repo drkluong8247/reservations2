@@ -1,5 +1,10 @@
 var restaurantSelected = false;
 
+var openHour = 0;
+var openMinute = 0;
+var closeHour = 0;
+var closeMinute = 0;
+
 function initialize()
 {
     retrieveRestaurants();
@@ -22,7 +27,7 @@ function initializeDate()
     var today = new Date();
 
     var hours = today.getHours();
-    if(hours >= 21)
+    if(hours >= 19)
     {
         today = new Date(today.valueOf() + 86400000);
     }
@@ -76,8 +81,8 @@ function fillRestaurants(xml)
     var table = "";
     for (i = 0; i < rList.length; i++)
     {
-        var name = "Name: " + rList[i].getElementsByTagName("name")[0].childNodes[0].nodeValue + "<br>";
-        var address = "Address: " + rList[i].getElementsByTagName("address")[0].childNodes[0].nodeValue + "<br>";
+        var name = "Restaurant Name: " + rList[i].getElementsByTagName("name")[0].childNodes[0].nodeValue + "<br>";
+        var address = "Restaurant Address: " + rList[i].getElementsByTagName("address")[0].childNodes[0].nodeValue + "<br>";
         var rating = "Rating: " + rList[i].getElementsByTagName("rating")[0].childNodes[0].nodeValue + "<br>";
         var foodtype = "Food type: " + rList[i].getElementsByTagName("foodtype")[0].childNodes[0].nodeValue + "<br>";
 
@@ -123,11 +128,22 @@ function updateSelectedRestaurant(xml)
         var rating = "Rating: " + rList[i].getElementsByTagName("rating")[0].childNodes[0].nodeValue + "<br>";
         var foodtype = "Food type: " + rList[i].getElementsByTagName("foodtype")[0].childNodes[0].nodeValue + "<br>";
 
-        result = name + address + rating + foodtype;
+        var openHours = rList[i].getElementsByTagName("opentime")[0].childNodes[0].nodeValue;
+        var closeHours = rList[i].getElementsByTagName("closetime")[0].childNodes[0].nodeValue;
+
+        var openFrom = "Open From: " + openHours + "  -  " + closeHours + "<br>";
+
+        result = name + address + rating + foodtype + openFrom;
 
         var id = "<input type=\"hidden\" id=\"sRestaurantId\" name=\"sRestaurantId\" value=\""
             + rList[i].getElementsByTagName("restaurantid")[0].childNodes[0].nodeValue + "\">";
         result += id;
+
+        // Updates some javascript variables for time validation.
+        openHour = rList[i].getElementsByTagName("openhour")[0].childNodes[0].nodeValue;
+        openMinute = rList[i].getElementsByTagName("openminute")[0].childNodes[0].nodeValue;
+        closeHour = rList[i].getElementsByTagName("closehour")[0].childNodes[0].nodeValue;
+        closeMinute = rList[i].getElementsByTagName("closeminute")[0].childNodes[0].nodeValue;
     }
     document.getElementById("selectedRestaurant").innerHTML = result;
     restaurantSelected = true;
@@ -155,6 +171,8 @@ function updateTime()
         }
     }
     document.getElementById("timeDisplay").innerHTML = str;
+
+    checkTime();
 }
 
 function getHour()
@@ -208,6 +226,11 @@ function validateForm()
     }
 
     if(!checkDate())
+    {
+        return false;
+    }
+
+    if(!checkTime())
     {
         return false;
     }
@@ -265,7 +288,7 @@ function checkDate()
     return true;
 }
 
-// Updates the help string for the
+// Updates the help string for the date
 function suggestDate(helpString)
 {
     document.getElementById("dateHelp").innerHTML = helpString;
@@ -321,4 +344,118 @@ function isLeapYear(year)
     }
 
     return false;
+}
+
+// Returns true if the time is valid
+function checkTime()
+{
+    // Checks if time is outside the restaurant hours
+    if(isTimeOutsideWorkingHours())
+    {
+        suggestTime("The time selected is outside the hours when the restaurant is open.");
+        return false;
+    }
+
+    // Checks if time is outside the restaurant hours
+    if(isTimeInPast())
+    {
+        suggestTime("This time is in the past. Either adjust the date or move the time forward.");
+        return false;
+    }
+
+    document.getElementById("timeHelp").innerHTML = "";
+    return true;
+}
+
+// Updates the help string for the time
+function suggestTime(helpString)
+{
+    document.getElementById("timeHelp").innerHTML = helpString;
+}
+
+function isTimeOutsideWorkingHours()
+{
+    var openTime = openHour * 60 + openMinute;
+    var closeTime = closeHour * 60 + closeMinute;
+    if(openTime == closeTime) {
+        return false;
+    }
+
+    var selectedTime = getSelectedTimeVal();
+    if(openTime < closeTime) {
+        return ((selectedTime >= closeTime) || (selectedTime < openTime));
+    }
+    else {
+        return ((selectedTime >= closeTime) && (selectedTime < openTime));
+    }
+}
+
+function isTimeInPast()
+{
+    var selectedTime = getSelectedTimeVal();
+
+    var today = new Date();
+
+    // Checks the selected year
+    var year = today.getFullYear();
+    var temp = document.getElementById("year");
+    var selectedYear = temp.options[temp.selectedIndex].value;
+    if(selectedYear > year)
+    {
+        return false;
+    }
+    else if(selectedYear == year)
+    {
+        // Checks the selected month
+        var month = today.getMonth() + 1;
+        temp = document.getElementById("month");
+        var selectedMonth = temp.options[temp.selectedIndex].value;
+        if (selectedMonth > month)
+        {
+            return false;
+        }
+        else if(selectedMonth == month)
+        {
+            // Checks the selected day
+            var day = today.getDate();
+            var selectedDay = document.getElementById("day").value;
+            if(selectedDay > day)
+            {
+                return false;
+            }
+            else if(selectedDay == day)
+            {
+                var time = today.getHours() * 60 + today.getMinutes();
+                if (time < getSelectedTimeVal()) {
+                    return false;
+                }
+            }
+        }
+    }
+
+    return true;
+}
+
+// Helper function to return a comparison value for current time,
+// as number of minutes past midnight.
+function getSelectedTimeVal()
+{
+    var selectedHour = getHour();
+    var selectedMinute = getMinute();
+    var amPm = getMorningNight();
+    if (selectedHour == 12)
+    {
+        if(amPm == "AM")
+        {
+            selectedHour = 0;
+        }
+    }
+    else if (amPm == "PM")
+    {
+        selectedHour += 12;
+    }
+
+
+    var selectedTime = selectedHour * 60 + selectedMinute;
+    return selectedTime;
 }
