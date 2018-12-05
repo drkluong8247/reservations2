@@ -59,9 +59,11 @@ public class SubmitReservationServlet extends HttpServlet {
         // Gets the restaurant from the form
         String restaurantID = req.getParameter("sRestaurantId");
 
+        Connection c = null;
+
         try
         {
-            Connection c = getConnection();
+            c = getConnection();
             String queryID = "SELECT max(resId) from reservations";
             PreparedStatement s = c.prepareStatement(queryID);
             ResultSet r = s.executeQuery();
@@ -127,6 +129,20 @@ public class SubmitReservationServlet extends HttpServlet {
         catch (SQLException sqlExc)
         {
             System.out.println("Database SQL exception");
+        }
+        finally
+        {
+            if(c != null)
+            {
+                try
+                {
+                    c.close();
+                }
+                catch (SQLException e)
+                {
+                    System.out.println("Database close SQL exception");
+                }
+            }
         }
 
         out.println("<html>");

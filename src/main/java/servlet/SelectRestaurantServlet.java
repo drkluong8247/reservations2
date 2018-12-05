@@ -34,10 +34,12 @@ public class SelectRestaurantServlet extends HttpServlet {
         String rIndex = req.getParameter("id");
         i = Integer.parseInt(rIndex);
 
+        Connection c = null;
+
         out.println("<restaurantlist>");
         try
         {
-            Connection c = getConnection();
+            c = getConnection();
 
             String restaurantQuery = "SELECT * FROM restaurants WHERE restaurantID=" + i;
             PreparedStatement s = c.prepareStatement(restaurantQuery);
@@ -52,6 +54,20 @@ public class SelectRestaurantServlet extends HttpServlet {
         }
         catch (SQLException sqlExc)
         {
+        }
+        finally
+        {
+            if(c != null)
+            {
+                try
+                {
+                    c.close();
+                }
+                catch (SQLException e)
+                {
+                    System.out.println("Database close SQL exception");
+                }
+            }
         }
 
         out.println("</restaurantlist>");

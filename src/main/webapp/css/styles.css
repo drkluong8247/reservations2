@@ -31,17 +31,19 @@ div.restaurantSearchResults td {
 }
 
 div.selectedRestaurant {
+    padding-left: 10px;
+    padding-top: 10px;
     border-width: 3px;
     background-color: #bbeeff;
     border-style: solid;
     width: 750px;
-    height: 100px;
+    height: 150px;
 }
 
 div.datePicker {
     background-color: #cceeff;
-    width: 700px;
-    height: 200px;
+    width: 500px;
+    height: 150px;
 }
 
 div.datePicker td, th {

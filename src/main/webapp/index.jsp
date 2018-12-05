@@ -28,19 +28,20 @@
 
 	<form action="/submit" method="post" onsubmit="return validateForm();">
 
+		<h3>Selected Restaurant: </h3>
 		<div id="selectedRestaurant" class="selectedRestaurant">
 			 Click a restaurant in the results above to select it.
 		</div>
 
-		<p>Number of People: <input id="numPeople" name="numPeople" type="number" min="1" max="20" value="2"></p>
+		<p> Number of People: <input id="numPeople" name="numPeople" type="number" min="1" max="20" value="2"></p>
 
 		<div class="datePicker">
-			<h2>Date</h2>
+			<h2>Date of Reservation</h2>
 			<table>
 				<tr>
-					<th style="width: 100px;">Month</th>
-					<th style="width: 100px;">Day</th>
-					<th style="width: 100px;">Year</th>
+					<th style="width: 150px;">Month</th>
+					<th style="width: 150px;">Day</th>
+					<th style="width: 150px;">Year</th>
 				</tr>
 				<tr>
 					<td>

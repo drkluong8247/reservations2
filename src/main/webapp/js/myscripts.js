@@ -81,10 +81,16 @@ function fillRestaurants(xml)
         var rating = "Rating: " + rList[i].getElementsByTagName("rating")[0].childNodes[0].nodeValue + "<br>";
         var foodtype = "Food type: " + rList[i].getElementsByTagName("foodtype")[0].childNodes[0].nodeValue + "<br>";
 
+        var openHours = rList[i].getElementsByTagName("opentime")[0].childNodes[0].nodeValue;
+        var closeHours = rList[i].getElementsByTagName("closetime")[0].childNodes[0].nodeValue;
+
+        var openFrom = "Open From: " + openHours + "  -  " + closeHours + " ";
+
         var id = rList[i].getElementsByTagName("restaurantid")[0].childNodes[0].nodeValue;
+        var selectButton = "<button onclick=selectRestaurant(" + id + ")> Select this Restaurant</button>";
 
         table += "<tr onclick=selectRestaurant(" + id + ")><td>" +
-        name + address + rating + foodtype +
+        name + address + rating + foodtype + openFrom + selectButton +
         "</td></tr>";
     }
     document.getElementById("RestaurantList").innerHTML = table;
@@ -289,7 +295,7 @@ function dateInvalid()
 
     if(day < 0 || day > days[month])
     {
-        var help = "The day in the date should be from 1 to" + days[month] + ".";
+        var help = "The day in the date should be from 1 to " + days[month] + ".";
         suggestDate(help);
         document.getElementById("day").focus();
         return true;
