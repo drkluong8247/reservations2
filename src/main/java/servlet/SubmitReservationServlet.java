@@ -92,16 +92,23 @@ public class SubmitReservationServlet extends HttpServlet {
             // Gets number of people in the reservation
             int numPeopleVal = Integer.parseInt(numPeople);
 
-            String insertStatement = "INSERT INTO reservations (resID, PersonName, restaurantRef, day, hour, minutes, numPeople) VALUES ("
-                + insertId + ",'" + personName + "'," + restaurantIDVal + ",'" + formatDate(month, day, year) + "'," + hourVal + ","
-                + minuteVal + "," + numPeopleVal + ");";
-
-            System.out.println(insertStatement);
-
+            // Constructs the INSERT statement
+            String insertStatement = "INSERT INTO reservations (resID, PersonName, restaurantRef, day, hour, minutes, numPeople) VALUES "
+                + "(?,?,?,?,?,?,?)";
+            //    + insertId + ",'" + personName + "'," + restaurantIDVal + ",'" + formatDate(month, day, year) + "'," + hourVal + ","
+            //    + minuteVal + "," + numPeopleVal + ");";
             s = c.prepareStatement(insertStatement);
-            if(s.executeUpdate() >= 1)
+            s.setInt(1, insertId);
+            s.setString(2, personName);
+            s.setInt(3, restaurantIDVal);
+            s.setDate(4, Date.valueOf(formatDate(year, month, day)));
+            s.setInt(5, hourVal);
+            s.setInt(6, minuteVal);
+            s.setInt(7, numPeopleVal);
+
+            if(s.executeUpdate() < 1)
             {
-                System.out.println("success?");
+                System.out.println("An error occurred in the insert");
             }
 
             String queryRestaurant = "SELECT * from restaurants WHERE restaurantID=" + restaurantIDVal;
@@ -115,11 +122,11 @@ public class SubmitReservationServlet extends HttpServlet {
         }
         catch (URISyntaxException uriExc)
         {
-            out.println("database connection URI exception");
+            System.out.println("Database URI exception");
         }
         catch (SQLException sqlExc)
         {
-            out.println("SQL Exception?");
+            System.out.println("Database SQL exception");
         }
 
         out.println("<html>");
@@ -160,6 +167,8 @@ public class SubmitReservationServlet extends HttpServlet {
         out.println("Restaurant Address:  " + restaurantAddress);
         out.println("</p>");
 
+        out.println("<button onclick=\"window.print();\"> Print </button>");
+
         out.println("</body>");
         out.println("</html>");
         out.flush();
@@ -186,9 +195,9 @@ public class SubmitReservationServlet extends HttpServlet {
         return "";
     }
 
-    private static String formatDate(String month, String day, String year)
+    private static String formatDate(String year, String month, String day)
     {
-        return month + "/" + day + "/" + year;
+        return year + "-" + month + "-" + day;
     }
 
     private static Connection getConnection() throws URISyntaxException, SQLException {

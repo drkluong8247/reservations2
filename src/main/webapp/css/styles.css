@@ -3,6 +3,10 @@ body {
     font-size: 1em;
 }
 
+p.helpText {
+    color: red;
+}
+
 div.restaurantSearchResults {
     height: 300px;
     overflow-y: auto;
@@ -28,9 +32,25 @@ div.restaurantSearchResults td {
 
 div.selectedRestaurant {
     border-width: 3px;
+    background-color: #bbeeff;
     border-style: solid;
     width: 750px;
-    height: 150px;
+    height: 100px;
+}
+
+div.datePicker {
+    background-color: #cceeff;
+    width: 700px;
+    height: 200px;
+}
+
+div.datePicker td, th {
+    padding: 3px;
+    text-align: center;
+}
+
+div.datePicker h2 {
+    text-align: center;
 }
 
 div.timeSelect {

@@ -34,36 +34,57 @@
 
 		<p>Number of People: <input id="numPeople" name="numPeople" type="number" min="1" max="20" value="2"></p>
 
-		<p> Date:
-			<select id="month" name="month">
-				<option value="1">January</option>
-				<option value="2">Feburary</option>
-				<option value="3">March</option>
-				<option value="4">April</option>
-				<option value="5">May</option>
-				<option value="6">June</option>
-				<option value="7">July</option>
-				<option value="8">August</option>
-				<option value="9">September</option>
-				<option value="10">October</option>
-				<option value="11">November</option>
-				<option value="12">December</option>
-			</select>
+		<div class="datePicker">
+			<h2>Date</h2>
+			<table>
+				<tr>
+					<th style="width: 100px;">Month</th>
+					<th style="width: 100px;">Day</th>
+					<th style="width: 100px;">Year</th>
+				</tr>
+				<tr>
+					<td>
+						<select id="month" name="month" oninput="checkDate();">
+							<option value="1">January</option>
+							<option value="2">Feburary</option>
+							<option value="3">March</option>
+							<option value="4">April</option>
+							<option value="5">May</option>
+							<option value="6">June</option>
+							<option value="7">July</option>
+							<option value="8">August</option>
+							<option value="9">September</option>
+							<option value="10">October</option>
+							<option value="11">November</option>
+							<option value="12">December</option>
+						</select>
+					</td>
+					<td>
+						<input id="day" name="day" type="number" min="1" max="31" value="1" oninput="checkDate();">
+					</td>
+					<td>
+						<select id="year" name="year" oninput="checkDate();">
+							<%
+								GregorianCalendar cal = new GregorianCalendar();
+								int year = cal.get(Calendar.YEAR);
+								for(int i = 0; i < 10; i++)
+								{
+									int optYear = year + i;
+									out.println("<option value=\"" + optYear + "\">" + optYear + " </option>");
+								}
+							%>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3">
+						<p id="dateHelp" class="helpText"></p>
+					</td>
+				</tr>
+			</table>
+		</div>
 
-			<input id="day" name="day" type="number" min="1" max="31" value="1">
-
-			<select id="year" name="year">
-				<%
-					GregorianCalendar cal = new GregorianCalendar();
-					int year = cal.get(Calendar.YEAR);
-					for(int i = 0; i < 10; i++)
-					{
-						int optYear = year + i;
-						out.println("<option value=\"" + optYear + "\">" + optYear + " </option>");
-					}
-				%>
-			</select>
-		</p>
+		<br>
 
 		<div class="timeSelect">
 		<p>  Time of Reservation: </p>
