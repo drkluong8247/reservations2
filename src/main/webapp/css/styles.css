@@ -75,6 +75,10 @@ div.timeSelect {
     width: 400px;
 }
 
+div.timeSelect p {
+    text-align: center;
+}
+
 div.timeSelect table {
     width: 100%;
 }

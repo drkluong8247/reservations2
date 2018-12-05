@@ -94,6 +94,10 @@ public class SelectRestaurantServlet extends HttpServlet {
         // Gets restaurant address
         output += encloseInXml("address", results.getString("address"));
 
+        // Gets a price range
+        String priceRange = "$" + results.getInt("minprice") + " - $" + results.getInt("maxprice") + " per person";
+        output += encloseInXml("pricerange", priceRange);
+
         // Gets id
         String restaurantID = "" + results.getInt("restaurantID");
         output += encloseInXml("restaurantid", restaurantID);

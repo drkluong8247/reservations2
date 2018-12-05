@@ -84,6 +84,7 @@ function fillRestaurants(xml)
         var name = "Restaurant Name: " + rList[i].getElementsByTagName("name")[0].childNodes[0].nodeValue + "<br>";
         var address = "Restaurant Address: " + rList[i].getElementsByTagName("address")[0].childNodes[0].nodeValue + "<br>";
         var rating = "Rating: " + rList[i].getElementsByTagName("rating")[0].childNodes[0].nodeValue + "<br>";
+        var pricing = "Price Range: " + rList[i].getElementsByTagName("pricerange")[0].childNodes[0].nodeValue + "<br>";
         var foodtype = "Food type: " + rList[i].getElementsByTagName("foodtype")[0].childNodes[0].nodeValue + "<br>";
 
         var openHours = rList[i].getElementsByTagName("opentime")[0].childNodes[0].nodeValue;
@@ -95,7 +96,7 @@ function fillRestaurants(xml)
         var selectButton = "<button onclick=selectRestaurant(" + id + ")> Select this Restaurant</button>";
 
         table += "<tr onclick=selectRestaurant(" + id + ")><td>" +
-        name + address + rating + foodtype + openFrom + selectButton +
+        name + address + rating + foodtype + pricing + openFrom + selectButton +
         "</td></tr>";
     }
     document.getElementById("RestaurantList").innerHTML = table;
@@ -126,6 +127,7 @@ function updateSelectedRestaurant(xml)
         var name = "Name: " + rList[i].getElementsByTagName("name")[0].childNodes[0].nodeValue + "<br>";
         var address = "Address: " + rList[i].getElementsByTagName("address")[0].childNodes[0].nodeValue + "<br>";
         var rating = "Rating: " + rList[i].getElementsByTagName("rating")[0].childNodes[0].nodeValue + "<br>";
+        var pricing = "Price Range: " + rList[i].getElementsByTagName("pricerange")[0].childNodes[0].nodeValue + "<br>";
         var foodtype = "Food type: " + rList[i].getElementsByTagName("foodtype")[0].childNodes[0].nodeValue + "<br>";
 
         var openHours = rList[i].getElementsByTagName("opentime")[0].childNodes[0].nodeValue;
@@ -133,7 +135,7 @@ function updateSelectedRestaurant(xml)
 
         var openFrom = "Open From: " + openHours + "  -  " + closeHours + "<br>";
 
-        result = name + address + rating + foodtype + openFrom;
+        result = name + address + rating + foodtype + pricing + openFrom;
 
         var id = "<input type=\"hidden\" id=\"sRestaurantId\" name=\"sRestaurantId\" value=\""
             + rList[i].getElementsByTagName("restaurantid")[0].childNodes[0].nodeValue + "\">";

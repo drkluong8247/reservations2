@@ -121,6 +121,10 @@ public class RetrieveRestaurantsServlet extends HttpServlet {
         String closeTime = getHumanReadableTime(results.getTime("closetime").toString());
         output += encloseInXml("closetime", closeTime);
 
+        // Gets a price range
+        String priceRange = "$" + results.getInt("minprice") + " - $" + results.getInt("maxprice") + " per person";
+        output += encloseInXml("pricerange", priceRange);
+
         // Gets id
         String restaurantID = "" + results.getInt("restaurantID");
         output += encloseInXml("restaurantid", restaurantID);

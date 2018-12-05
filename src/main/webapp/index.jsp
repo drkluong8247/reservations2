@@ -32,8 +32,6 @@
 			 Click a restaurant in the results above to select it.
 		</div>
 
-		<p> Number of People: <input id="numPeople" name="numPeople" type="number" min="1" max="20" value="2"></p>
-
 		<div class="datePicker">
 			<h2>Date of Reservation</h2>
 			<table>
@@ -87,7 +85,7 @@
 		<br>
 
 		<div class="timeSelect">
-		<p>  Time of Reservation: </p>
+		<h2>  Time of Reservation </h2>
 		<p id="timeDisplay"></p>
 		<table>
 			<tr>
@@ -138,7 +136,9 @@
 		</div>
 
 		<br>
-		Name: <input id="personName" name="personName" type="text" required> <br>
+		<p> Number of People: <input id="numPeople" name="numPeople" type="number" min="1" max="20" value="2"></p>
+		<p> Name: <input id="personName" name="personName" type="text" required></p>
+		<br>
 
 		<input type="submit" value="Submit" Name="submit">
 	</form>
