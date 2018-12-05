@@ -375,8 +375,8 @@ function suggestTime(helpString)
 
 function isTimeOutsideWorkingHours()
 {
-    var openTime = openHour * 60 + openMinute;
-    var closeTime = closeHour * 60 + closeMinute;
+    var openTime = parseInt(openHour * 60) + parseInt(openMinute);
+    var closeTime = parseInt(closeHour * 60) + parseInt(closeMinute);
     if(openTime == closeTime) {
         return false;
     }
@@ -386,7 +386,7 @@ function isTimeOutsideWorkingHours()
         return ((selectedTime >= closeTime) || (selectedTime < openTime));
     }
     else {
-        return ((selectedTime >= closeTime) && (selectedTime < openTime));
+        return !((selectedTime > closeTime) || (selectedTime <= openTime));
     }
 }
 
@@ -400,9 +400,9 @@ function isTimeInPast()
     var year = today.getFullYear();
     var temp = document.getElementById("year");
     var selectedYear = temp.options[temp.selectedIndex].value;
-    if(selectedYear > year)
+    if(selectedYear < year)
     {
-        return false;
+        return true;
     }
     else if(selectedYear == year)
     {
@@ -410,30 +410,31 @@ function isTimeInPast()
         var month = today.getMonth() + 1;
         temp = document.getElementById("month");
         var selectedMonth = temp.options[temp.selectedIndex].value;
-        if (selectedMonth > month)
+        if (selectedMonth < month)
         {
-            return false;
+            return true;
         }
         else if(selectedMonth == month)
         {
             // Checks the selected day
             var day = today.getDate();
             var selectedDay = document.getElementById("day").value;
-            if(selectedDay > day)
+            if(selectedDay < day)
             {
-                return false;
+                return true;
             }
             else if(selectedDay == day)
             {
-                var time = today.getHours() * 60 + today.getMinutes();
-                if (time < getSelectedTimeVal()) {
-                    return false;
+                var hoursVal = (today.getHours() * 60);
+                var time = hoursVal.valueOf() + today.getMinutes();
+                if (selectedTime < time) {
+                    return true;
                 }
             }
         }
     }
 
-    return true;
+    return false;
 }
 
 // Helper function to return a comparison value for current time,
@@ -442,6 +443,10 @@ function getSelectedTimeVal()
 {
     var selectedHour = getHour();
     var selectedMinute = getMinute();
+    if(selectedMinute == "00")
+    {
+        selectedMinute = 0;
+    }
     var amPm = getMorningNight();
     if (selectedHour == 12)
     {
@@ -452,10 +457,9 @@ function getSelectedTimeVal()
     }
     else if (amPm == "PM")
     {
-        selectedHour += 12;
+        selectedHour = parseInt(selectedHour) + parseInt(12);
     }
 
-
-    var selectedTime = selectedHour * 60 + selectedMinute;
+    var selectedTime = (selectedHour * 60) + selectedMinute;
     return selectedTime;
 }

@@ -25,7 +25,7 @@
 
 	<h1>Step 2: Fill in Information</h1>
 
-	<form action="/submit" method="post" onsubmit="return validateForm();">
+	<form action="/submit" method="post" onsubmit="return validateForm();" accept-charset="UTF-8">
 
 		<h2>Selected Restaurant: </h2>
 		<div id="selectedRestaurant" class="selectedRestaurant">
@@ -114,19 +114,19 @@
 				</td>
 				<td>
 					<label for="minutes0">00</label>
-					<input id="minutes0" type="radio" name="minute" value="00" onchange="updateTime()" checked><br>
+					<input id="minutes0" type="radio" name="minute" value="00" onchange="updateTime();" checked><br>
 					<label for="minutes15">15</label>
-					<input id="minutes15" type="radio" name="minute" value="15" onchange="updateTime()"><br>
+					<input id="minutes15" type="radio" name="minute" value="15" onchange="updateTime();"><br>
 					<label for="minutes30">30</label>
-					<input id="minutes30" type="radio" name="minute" value="30" onchange="updateTime()"><br>
+					<input id="minutes30" type="radio" name="minute" value="30" onchange="updateTime();"><br>
 					<label for="minutes45">45</label>
-					<input id="minutes45" type="radio" name="minute" value="45" onchange="updateTime()"><br>
+					<input id="minutes45" type="radio" name="minute" value="45" onchange="updateTime();"><br>
 				</td>
 				<td>
 					<label for="AM">AM</label>
-					<input id="AM" type="radio" name="AmPm" value="AM" onchange="updateTime()"><br>
+					<input id="AM" type="radio" name="AmPm" value="AM" onchange="updateTime();"><br>
 					<label for="PM">PM</label>
-					<input id="PM" type="radio" name="AmPm" value="PM" onchange="updateTime()" checked><br>
+					<input id="PM" type="radio" name="AmPm" value="PM" onchange="updateTime();" checked><br>
 				</td>
 			</tr>
 			<tr>
