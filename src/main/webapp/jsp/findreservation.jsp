@@ -13,6 +13,7 @@
 	<button onclick="findReservation();">Retrieve your Reservation</button>
 	<br>
 	<div>
+		<p id="errorText" class="helpText"></p>
 		<p id="selectedReservation"></p>
 	</div>
 </body>

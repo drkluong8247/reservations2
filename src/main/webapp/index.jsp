@@ -11,6 +11,8 @@
 
 	<a href="/jsp/findreservation.jsp">Click here to retrieve a reservation</a>
 
+	<h3>Make A Reservation</h3>
+
 	<h1>Step 1: Select your restaurant</h1>
 
 	<p>Restaurant: <input id="restaurantSearch" type="text" onchange="updateRestaurants()"></p>
