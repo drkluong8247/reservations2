@@ -3,6 +3,14 @@ body {
     font-size: 1em;
 }
 
+h1 {
+    font-size: 1.5em;
+}
+
+h2 {
+    font-size: 1.2em;
+}
+
 p.helpText {
     color: red;
 }
@@ -68,4 +76,5 @@ div.timeSelect table {
 div.timeSelect td, th {
     padding: 3px;
     width: 33%;
+    text-align: center;
 }

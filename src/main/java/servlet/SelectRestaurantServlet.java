@@ -98,8 +98,111 @@ public class SelectRestaurantServlet extends HttpServlet {
         String restaurantID = "" + results.getInt("restaurantID");
         output += encloseInXml("restaurantid", restaurantID);
 
+        // Gets opening and closing hours. Get additional information for selection.
+        String openTime = getHumanReadableTime(results.getTime("opentime").toString());
+        int openHour = findHour(results.getTime("opentime").toString());
+        int openMinute = findMinute(results.getTime("opentime").toString());
+        output += encloseInXml("opentime", openTime);
+        output += encloseInXml("openhour", openHour + "");
+        output += encloseInXml("openminute", openMinute + "");
+
+        String closeTime = getHumanReadableTime(results.getTime("closetime").toString());
+        int closeHour = findHour(results.getTime("closetime").toString());
+        int closeMinute = findMinute(results.getTime("closetime").toString());
+        output += encloseInXml("closetime", closeTime);
+        output += encloseInXml("closehour", closeHour + "");
+        output += encloseInXml("closeminute", closeMinute + "");
+
         output += "</restaurant>";
         out.println(output);
+    }
+
+    private int findHour(String time)
+    {
+        int firstColon = time.indexOf(":");
+        if(firstColon <= 0)
+        {
+            firstColon = 1;
+        }
+        String hour = time.substring(0, firstColon);
+
+        int result = 0;
+        try
+        {
+            result = Integer.parseInt(hour);
+        }
+        catch (NumberFormatException e)
+        {
+            // Couldn't find an hour, so return 0
+        }
+
+        return result;
+    }
+
+    private int findMinute(String time)
+    {
+        int firstColon = time.indexOf(":");
+        int secondColon = time.indexOf(":", firstColon + 1);
+        if(firstColon < 0)
+        {
+            firstColon = 0;
+        }
+        if(secondColon <= 0)
+        {
+            secondColon = 1;
+        }
+
+        String minute = time.substring(firstColon+1, secondColon);
+
+        int result = 0;
+        try
+        {
+            result = Integer.parseInt(minute);
+        }
+        catch (NumberFormatException e)
+        {
+            // Couldn't find a minute value, so return 0
+        }
+
+        return result;
+    }
+
+    private String getHumanReadableTime(String time)
+    {
+        int firstColon = time.indexOf(":");
+        int secondColon = time.indexOf(":", firstColon+1);
+
+        String hour = time.substring(0, firstColon);
+        String minute = time.substring(firstColon+1, secondColon);
+
+        int hourVal = Integer.parseInt(hour);
+
+        String mornNight = "AM";
+        if (hourVal == 0)
+        {
+            hour = "12";
+        }
+        else if (hourVal >= 12) {
+            mornNight = "PM";
+            if(hourVal > 12)
+            {
+                hourVal -= 12;
+                hour = "" + hourVal;
+            }
+        }
+
+        String result = hour + " : " + minute + " " + mornNight;
+        if(hour.equals("12") && minute.equals("00"))
+        {
+            if(mornNight.equals("AM")) {
+                result += " (midnight)";
+            }
+            else if(mornNight.equals("PM")) {
+                result += " (noon)";
+            }
+        }
+
+        return result;
     }
 
     private String encloseInXml(String tag, String value)

@@ -23,7 +23,8 @@
 		</table>
 	</div>
 
-	<br>
+	<hr>
+
 	<h1>Step 2: Fill in Information</h1>
 
 	<form action="/submit" method="post" onsubmit="return validateForm();">

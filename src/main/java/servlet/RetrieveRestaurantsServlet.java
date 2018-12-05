@@ -119,7 +119,7 @@ public class RetrieveRestaurantsServlet extends HttpServlet {
         output += encloseInXml("opentime", openTime);
 
         String closeTime = getHumanReadableTime(results.getTime("closetime").toString());
-        output += encloseInXml("closetime", openTime);
+        output += encloseInXml("closetime", closeTime);
 
         // Gets id
         String restaurantID = "" + results.getInt("restaurantID");
