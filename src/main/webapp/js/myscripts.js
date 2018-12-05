@@ -388,7 +388,7 @@ function isTimeOutsideWorkingHours()
         return ((selectedTime >= closeTime) || (selectedTime < openTime));
     }
     else {
-        return !((selectedTime > closeTime) || (selectedTime <= openTime));
+        return ((selectedTime >= closeTime) && (selectedTime < openTime));
     }
 }
 
